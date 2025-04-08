@@ -1,8 +1,9 @@
 const express = require("express");
 
 require("dotenv").config()
-const route = require('./routes/client/index.route.js')
 
+const routeClient = require('./routes/client/index.route.js');
+const routeAdmin = require('./routes/admin/index.route.js');
 // Connect DB
 const database = require("./config/database.js")
 database.connect();
@@ -16,8 +17,8 @@ app.set('view engine', 'pug'); // which template engine
 app.use(express.static("public"));
 
 // Routes
-route(app);
-
+routeClient(app);
+routeAdmin(app);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
