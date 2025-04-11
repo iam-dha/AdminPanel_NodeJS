@@ -31,6 +31,7 @@
   }
 
   .sider .inner-menu ul li a{
+    text-decoration: none;
     color: #fff;
     display: block;
     padding: 6px 10px;

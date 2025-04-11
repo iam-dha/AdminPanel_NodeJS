@@ -1,0 +1,33 @@
+extends ../../layouts/default.pug 
+
+block main 
+    h1 Danh sach san pham 
+
+
+    table.table.table-hover.table-sm 
+        thead 
+            tr
+                th STT 
+                th Hình ảnh 
+                th Tiêu đề
+                th Giá
+                th Trạng Thái 
+                th Hành động
+
+        tbody 
+            tr
+                td 1
+                td 
+                    img(
+                        src="https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
+                        alt= "San pham 1"
+                        wigth= "100px"
+                        height= "20px"
+                    )
+                td San pham 1
+                td 100$
+                td 
+                    a(href="#" class="badge badge-success") Hoat dong
+                td
+                    button(class="btn btn-warning btn-sm") Sua 
+                    button(class="btn btn btn-danger btn-sm ml -1") Xoa
