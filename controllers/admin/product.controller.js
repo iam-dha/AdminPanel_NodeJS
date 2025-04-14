@@ -3,7 +3,6 @@ const Product = require("../../models/product.model");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-
     let filterStatus= [
         {
             name: "All",
@@ -21,6 +20,7 @@ module.exports.index = async (req, res) => {
             class: ""
         }
     ]
+    let keyword = "";
 
     let find = {
         deleted: false
@@ -36,10 +36,18 @@ module.exports.index = async (req, res) => {
         filterStatus[index].class = "active";
     }
 
+    if(req.query.keyword){
+        keyword = req.query.keyword;
+        const regex = new RegExp(keyword, "i");
+        find.title = regex;
+    }
+
+
     const productList = await Product.find(find);
     res.render("./admin/pages/products/index.pug", {
         titlePage: "Trang san pham",
         products: productList,
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        keyword: keyword
     });
 }
