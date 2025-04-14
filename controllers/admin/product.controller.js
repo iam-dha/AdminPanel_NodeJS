@@ -1,48 +1,24 @@
 const Product = require("../../models/product.model");
-
+const filterStatusHelper = require("../../helpers/filterStatus");
+const searchHelper = require("../../helpers/search");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-    let filterStatus= [
-        {
-            name: "All",
-            status: "", 
-            class: ""
-        },
-        {
-            name: "In Stock",
-            status: "In Stock", 
-            class: ""
-        },
-        {
-            name: "Low Stock",
-            status: "Low Stock", 
-            class: ""
-        }
-    ]
-    let keyword = "";
-
     let find = {
         deleted: false
     }
+    let filterStatus = filterStatusHelper(req.query);
+    let objectSearch = searchHelper(req.query);
+    let keyword = objectSearch.keyword;
+    //Add key to find Object
     if(req.query.availabilityStatus){
-        const availabilityStatus = req.query.availabilityStatus;
-        const index = filterStatus.findIndex(item => item.status == req.query.availabilityStatus);
-        filterStatus[index].class = "active";
-        find.availabilityStatus = availabilityStatus;
+        find.availabilityStatus = req.query.availabilityStatus;
     }
-    else {
-        const index = filterStatus.findIndex(item => item.status == "");
-        filterStatus[index].class = "active";
+    if(objectSearch.regex){
+        find.title = objectSearch.regex;
     }
 
-    if(req.query.keyword){
-        keyword = req.query.keyword;
-        const regex = new RegExp(keyword, "i");
-        find.title = regex;
-    }
-
-
+    console.log(objectSearch);
     const productList = await Product.find(find);
     res.render("./admin/pages/products/index.pug", {
         titlePage: "Trang san pham",
