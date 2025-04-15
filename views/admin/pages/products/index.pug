@@ -21,12 +21,12 @@ block main
             table.table.table-hover.table-sm 
                 thead 
                     tr
-                        th STT 
-                        th Hình ảnh 
-                        th Tiêu đề
-                        th Giá
-                        th Trạng Thái 
-                        th Hành động
+                        th No.
+                        th Image
+                        th Title
+                        th Price
+                        th Status 
+                        th Action
 
                 tbody 
                     each item, index in products   
@@ -48,6 +48,6 @@ block main
                                 td 
                                     a(href="#" class="badge bg-danger") Low Stock
                             td
-                                button(class="btn btn-warning btn-sm") Sua 
-                                button(class="btn btn btn-danger btn-sm ms -1") Xoa
+                                button(class="btn btn-warning btn-sm") Edit 
+                                button(class="btn btn btn-danger btn-sm ms -1") Delete
         +pagination(pagination)

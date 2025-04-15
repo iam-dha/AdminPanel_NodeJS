@@ -13,6 +13,7 @@ if(buttonStatus.length > 0) {
             else {
                 url.searchParams.delete("availabilityStatus");
             }
+            url.searchParams.delete("page");
             // console.log(url.href)
             window.location.href = url.href;
         })
