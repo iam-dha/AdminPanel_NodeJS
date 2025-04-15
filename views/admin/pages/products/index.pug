@@ -43,11 +43,30 @@ block main
                             td #{item.price}$
                             if (item.availabilityStatus == "In Stock")
                                 td 
-                                    a(href="#" class="badge bg-success") In Stock
+                                    a( 
+                                        href="javascript:;" 
+                                        data-status= item.availabilityStatus
+                                        data-id = item.id
+                                        button-change-status
+                                        class="badge bg-success"
+                                    ) In Stock
                             else 
                                 td 
-                                    a(href="#" class="badge bg-danger") Low Stock
+                                    a(
+                                        href="javascript:;" 
+                                        data-status= item.availabilityStatus
+                                        data-id = item.id
+                                        button-change-status
+                                        class="badge bg-danger"
+                                    ) Low Stock
                             td
                                 button(class="btn btn-warning btn-sm") Edit 
                                 button(class="btn btn btn-danger btn-sm ms -1") Delete
         +pagination(pagination)
+        form(
+            action=""
+            method="GET"
+            id="form-change-status"
+            data-path = `${prefixAdmin}/products/changeStatus`
+            ) 
+    script(src="/admin/js/product.js")

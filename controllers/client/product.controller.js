@@ -8,11 +8,10 @@ module.exports.index = async (req, res) => {
 
     const newProductList = productList.map((item) => {
         item['newPrice'] = (item.price * (1 - item.discountPercentage)).toFixed(2);
-        item['discountPercentage'] *= 100; 
+        item['discountPercentage'] = (item['discountPercentage'] * 100).toFixed(2); 
         return item;
     })
-
-    console.log(productList)
+    
     res.render("./client/pages/products/index.pug", {
         titlePage: "Trang danh sach san pham",
         products: productList

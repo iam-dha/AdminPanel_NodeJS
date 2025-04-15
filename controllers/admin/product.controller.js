@@ -28,6 +28,7 @@ module.exports.index = async (req, res) => {
     //End Pagination
 
     const productList = await Product.find(find).limit(objPagination.limitItems).skip(objPagination.skip);
+
     res.render("./admin/pages/products/index.pug", {
         titlePage: "Trang san pham",
         products: productList,
@@ -35,4 +36,13 @@ module.exports.index = async (req, res) => {
         keyword: keyword,
         pagination: objPagination
     });
+}
+
+// [GET] admin/products/changeStatus/:status/:id
+
+module.exports.changeStatus = (req, res) => {
+    console.log(req.params);
+    const status = req.params.status;
+    const id = req.params.id;
+    res.send(`${status} - ${id}`)
 }

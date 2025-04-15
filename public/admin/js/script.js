@@ -59,5 +59,7 @@ if (buttonsPagination) {
     })
 }
 
+// Product State change
+
 
 

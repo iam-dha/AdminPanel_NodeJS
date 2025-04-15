@@ -21,7 +21,6 @@ app.use(express.static("public"));
 
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-
 // Routes
 routeClient(app);
 routeAdmin(app);
