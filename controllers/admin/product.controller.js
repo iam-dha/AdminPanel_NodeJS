@@ -39,10 +39,14 @@ module.exports.index = async (req, res) => {
 }
 
 // [GET] admin/products/changeStatus/:status/:id
-
-module.exports.changeStatus = (req, res) => {
-    console.log(req.params);
+module.exports.changeStatus = async (req, res) => {
+    const referer = req.get("referer");
     const status = req.params.status;
     const id = req.params.id;
-    res.send(`${status} - ${id}`)
+
+    await Product.updateOne(
+        {_id: id},
+        {availabilityStatus: status}
+    );
+    res.redirect(referer)
 }

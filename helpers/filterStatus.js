@@ -11,8 +11,8 @@ module.exports = (query) => {
             class: ""
         },
         {
-            name: "Low Stock",
-            status: "Low Stock", 
+            name: "Out Stock",
+            status: "Out Stock", 
             class: ""
         }
     ]

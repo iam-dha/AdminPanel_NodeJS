@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride = require("method-override");
 const systemConfig = require("./config/system.js");
 
 require("dotenv").config()
@@ -16,6 +17,9 @@ const port = process.env.PORT;
 app.set('views', './views');
 app.set('view engine', 'pug'); // which template engine
 app.use(express.static("public"));
+
+//Overriding method 
+app.use(methodOverride("_method"));
 
 // App local variables
 

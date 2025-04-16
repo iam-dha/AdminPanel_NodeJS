@@ -8,9 +8,9 @@ if(buttonChangeStatus.length > 0){ // add href="javascript:;" to make only work 
         button.addEventListener("click", () => {
             const currentAvailabilityStatus = button.getAttribute("data-status");
             const id = button.getAttribute("data-id");
-            const changeAvailabilityStatus = (currentAvailabilityStatus == "In Stock" ? "Low Stock" : "In Stock");
+            const changeAvailabilityStatus = (currentAvailabilityStatus == "In Stock" ? "Out Stock" : "In Stock");
 
-            const action = `${path}/${currentAvailabilityStatus}/${id}`;
+            const action = `${path}/${changeAvailabilityStatus}/${id}?_method=PATCH`;
             formChangeStatus.action = action;
 
             formChangeStatus.submit();

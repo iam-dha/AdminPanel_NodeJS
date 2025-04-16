@@ -35,7 +35,7 @@ block main
                             td 
                                 img(
                                     src=item.thumbnail
-                                    alt= "San pham 1"
+                                    alt= `San pham ${index + 1}`
                                     wigth= "100px"
                                     height= "70px"
                                 )
@@ -58,14 +58,14 @@ block main
                                         data-id = item.id
                                         button-change-status
                                         class="badge bg-danger"
-                                    ) Low Stock
+                                    ) Out Stock
                             td
                                 button(class="btn btn-warning btn-sm") Edit 
                                 button(class="btn btn btn-danger btn-sm ms -1") Delete
         +pagination(pagination)
         form(
             action=""
-            method="GET"
+            method="POST"
             id="form-change-status"
             data-path = `${prefixAdmin}/products/changeStatus`
             ) 
