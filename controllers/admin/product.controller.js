@@ -38,7 +38,7 @@ module.exports.index = async (req, res) => {
     });
 }
 
-// [GET] admin/products/changeStatus/:status/:id
+// [PATCH] admin/products/changeStatus/:status/:id
 module.exports.changeStatus = async (req, res) => {
     const referer = req.get("referer");
     const status = req.params.status;
@@ -50,3 +50,22 @@ module.exports.changeStatus = async (req, res) => {
     );
     res.redirect(referer)
 }
+
+// [PATCH] admin/products/changeMulti/:status/:id
+module.exports.changeMultiStatus = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(", ");
+    switch (type){
+        case "In Stock":
+            await Product.updateMany({_id: {$in: ids}}, {availabilityStatus: "In Stock"})
+            break;
+        case "Out Stock":
+            await Product.updateMany({_id: {$in: ids}}, {availabilityStatus: "Out Stock"})
+            break;
+        default:
+            break;
+    }
+    const referer = req.get("referer");
+    res.redirect(referer);
+}
+
