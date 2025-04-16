@@ -49,7 +49,7 @@ block main
                                 td 
                                     img(
                                         src=item.thumbnail
-                                        alt= `San pham ${index + 1}`
+                                        alt= `Product ${index + 1}`
                                         wigth= "100px"
                                         height= "70px"
                                     )
@@ -75,12 +75,22 @@ block main
                                         ) Out Stock
                                 td
                                     button(class="btn btn-warning btn-sm") Edit 
-                                    button(class="btn btn btn-danger btn-sm ms -1") Delete
+                                    button(
+                                        class="btn btn btn-danger btn-sm ms -1"
+                                        data-id= item.id
+                                        button-delete
+                                        ) Delete
         +pagination(pagination)
         form(
             action=""
             method="POST"
             id="form-change-status"
             data-path = `${prefixAdmin}/products/changeStatus`
-            ) 
+        ) 
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path = `${prefixAdmin}/products/delete`
+        ) 
     script(src="/admin/js/product.js")

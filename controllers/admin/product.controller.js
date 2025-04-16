@@ -69,3 +69,12 @@ module.exports.changeMultiStatus = async (req, res) => {
     res.redirect(referer);
 }
 
+// [DELETE] admin/products/delete/:id
+
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+    await Product.deleteOne({_id: id});
+    const referer = req.get("referer");
+    res.redirect(referer);
+}
+
