@@ -27,7 +27,10 @@ module.exports.index = async (req, res) => {
     }, req.query, countProducts);
     //End Pagination
 
-    const productList = await Product.find(find).limit(objPagination.limitItems).skip(objPagination.skip);
+    const productList = await Product.find(find)
+        .sort({position: "desc"})
+        .limit(objPagination.limitItems)
+        .skip(objPagination.skip);
 
     res.render("./admin/pages/products/index.pug", {
         titlePage: "Trang san pham",
@@ -62,6 +65,23 @@ module.exports.changeMultiStatus = async (req, res) => {
         case "Out Stock":
             await Product.updateMany({_id: {$in: ids}}, {availabilityStatus: "Out Stock"})
             break;
+        case "Delete":
+            await Product.updateMany(
+                {_id: {$in: ids}}, {
+                    deleted: true,
+                    deletedAt: new Date()
+                }
+            )
+        case "Change-Position":
+            for (const item of ids) {
+                let [id, position] = item.split("-");
+                position = parseInt(position);
+                await Product.updateOne({
+                    _id: id
+                }, {
+                    position: position
+                })
+            }
         default:
             break;
     }
@@ -73,7 +93,10 @@ module.exports.changeMultiStatus = async (req, res) => {
 
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
-    await Product.deleteOne({_id: id});
+    await Product.updateOne({_id: id}, {
+        deleted: true,
+        deletedAt: new Date()
+    });
     const referer = req.get("referer");
     res.redirect(referer);
 }

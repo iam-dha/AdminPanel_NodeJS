@@ -115,12 +115,27 @@ if (checkboxMulti) {
             const checkboxMulti = document.querySelector("[checkbox-multi]");
             const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
 
+            const typeChange = e.target.elements.type.value;
+
+            if(typeChange == "Delete"){
+                const isConfirm = confirm("Delete selected product?");
+                if(!isConfirm){
+                    return;
+                }
+            }
             if(inputsChecked.length > 0){
                 let ids = [];
                 const inputIds = formChangeMulti.querySelector("[name='ids']");
                 inputsChecked.forEach(input => {
                     const id = input.value;
-                    ids.push(id);
+                    if(typeChange == "Change-Position"){
+                        const position = input.closest("tr").querySelector("input[name='position']").value;
+
+                        ids.push(`${id}-${position}`);
+                    }
+                    else {
+                        ids.push(id);
+                    }
                 })
                 
                 inputIds.value = ids.join(", ");
