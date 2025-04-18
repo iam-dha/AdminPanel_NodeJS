@@ -1,6 +1,9 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser"); // Parse request body from form-encoded
+const flash = require("express-flash");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const systemConfig = require("./config/system.js");
 
 require("dotenv").config()
@@ -23,9 +26,12 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded())
+// Express flash
+app.use(cookieParser('Thiskeyisprivate'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
 
 // App local variables
-
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Routes

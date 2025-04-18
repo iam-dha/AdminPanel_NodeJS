@@ -3,8 +3,12 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
 
 block main 
+
+    +alert-success("5000")
+    
     h1 Product List
 
     .card.mb-3 
@@ -20,7 +24,14 @@ block main
     .card.mb-3 
         .card-header Product List
             .card-body
-                +formChangeMulti(`${prefixAdmin}/products/changeMulti?_method=PATCH`)
+                .row 
+                    .col-8
+                        +formChangeMulti(`${prefixAdmin}/products/changeMulti?_method=PATCH`)
+                    .col-4 
+                        a(
+                            href=`${prefixAdmin}/products/create`
+                            class="btn btn-outline-success"
+                        ) Add new Product
                 table(
                     class= "table table-hover table-sm"
                     checkbox-multi
