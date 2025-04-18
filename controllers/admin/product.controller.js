@@ -3,6 +3,7 @@ const systemConfig = require("../../config/system");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
+const redirectBack = require("../../helpers/redirectBack");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -48,7 +49,6 @@ module.exports.index = async (req, res) => {
 
 // [PATCH] admin/products/changeStatus/:status/:id
 module.exports.changeStatus = async (req, res) => {
-    const referer = req.get("referer");
     const status = req.params.status;
     const id = req.params.id;
 
@@ -56,7 +56,7 @@ module.exports.changeStatus = async (req, res) => {
 
     req.flash("success", "Change Status Successfully!");
 
-    res.redirect(referer);
+    redirectBack(req, res);
 };
 
 // [PATCH] admin/products/changeMulti/:status/:id
@@ -113,8 +113,7 @@ module.exports.changeMultiStatus = async (req, res) => {
         default:
             break;
     }
-    const referer = req.get("referer");
-    res.redirect(referer);
+    redirectBack(req, res);
 };
 
 // [DELETE] admin/products/delete/:id
@@ -128,8 +127,7 @@ module.exports.deleteItem = async (req, res) => {
             deletedAt: new Date(),
         }
     );
-    const referer = req.get("referer");
-    res.redirect(referer);
+    redirectBack(req, res);
 };
 
 // [GET] admin/products/create
@@ -145,7 +143,9 @@ module.exports.createPost = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    if(req.file){
+        req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
     if(req.body.position == ""){
         const countProducts = await Product.countDocuments({deleted: false});
         req.body.position = countProducts + 1;
