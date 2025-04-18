@@ -1,20 +1,20 @@
-  /* Header */
-  .header {
+/* Header */
+.header {
     padding: 10px 0;
     background-color: #202020;
     position: sticky;
     top: 0;
     z-index: 999;
-  }
-  
-  .header .inner-logo a {
+}
+
+.header .inner-logo a {
     font-size: 24px;
     font-weight: 700;
     color: #fff;
-  }
-  
-  /* Sider */
-  .body .sider {
+}
+
+/* Sider */
+.body .sider {
     width: 150px;
     background-color: #323232;
     color: #fff;
@@ -22,54 +22,54 @@
     left: 0;
     position: fixed;
     height: 100%;
-  }
+}
 
-  .sider .inner-menu ul{
+.sider .inner-menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
+}
 
-  .sider .inner-menu ul li a{
+.sider .inner-menu ul li a {
     text-decoration: none;
     color: #fff;
     display: block;
     padding: 6px 10px;
     border-bottom: 1px solid #515151;
-  }
-  
-  /* Main content */
-  .body .main {
+}
+
+/* Main content */
+.body .main {
     margin: 15px;
     left: 150px;
     position: relative;
     width: calc(100% - 180px);
-  }
+}
 
-  /* Show Alert */
-  [show-alert] {
+/* Show Alert */
+[show-alert] {
     position: fixed;
     top: 70px;
     right: 15px;
     z-index: 9999;
-  }
-  
-  [show-alert].alert-hidden {
+}
+
+[show-alert].alert-hidden {
     animation-name: alert-hidden;
     animation-duration: 0.5s;
     animation-fill-mode: both;
-  }
+}
 
-  @keyframes alert-hidden {
+@keyframes alert-hidden {
     from {
-      right: 15px;
+        right: 15px;
     }
     to {
-      right: -100%;
-      display: none;
+        right: -100%;
+        display: none;
     }
-  }
-  [show-alert] [close-alert] {
+}
+[show-alert] [close-alert] {
     background: #ffffffc4;
     display: inline-block;
     width: 24px;
@@ -79,5 +79,16 @@
     font-weight: 600;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
+.image-preview {
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
 
+.image-preview[src= ""] {
+  display: none;
+}

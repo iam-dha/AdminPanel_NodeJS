@@ -1,5 +1,5 @@
 // Change product status
-const buttonChangeStatus = document.querySelectorAll("[button-change-status]")
+const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
 
 if(buttonChangeStatus.length > 0){ // add href="javascript:;" to make only work js code
     const formChangeStatus = document.querySelector("#form-change-status")

@@ -166,4 +166,20 @@ if(showAlert){
 }
 //End show alert
 
+//Preview Image
+
+const uploadImage = document.querySelector("[upload-image]");
+if(uploadImage){
+    const uploadImageInput = document.querySelector("[upload-image-input]");
+    const uploadImagePreview = document.querySelector("[upload-image-preview]");
+    uploadImageInput.addEventListener("change", (e) => {
+        const [fileToPreview] = e.target.files;
+        if(fileToPreview){
+            uploadImagePreview.src = URL.createObjectURL(fileToPreview);
+        }
+    })
+}
+
+//End Preview image
+
 
