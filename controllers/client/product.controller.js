@@ -7,8 +7,8 @@ module.exports.index = async (req, res) => {
     }).sort({position: "desc"});
 
     const newProductList = productList.map((item) => {
-        item['newPrice'] = (item.price * (1 - item.discountPercentage)).toFixed(2);
-        item['discountPercentage'] = (item['discountPercentage'] * 100).toFixed(2); 
+        item['newPrice'] = (item.price * (100 - item.discountPercentage)/100).toFixed(2);
+        item['discountPercentage'] = item['discountPercentage']; 
         return item;
     })
     

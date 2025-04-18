@@ -16,6 +16,14 @@ router.patch("/changeMulti", controller.changeMultiStatus);
 
 router.delete("/delete/:id", controller.deleteItem);
 
+router.get("/edit/:id", controller.edit)
+
+router.patch(
+    "/edit/:id", 
+    upload.single("thumbnail"), 
+    productValidate.createPost,
+    controller.editPatch);
+
 router.get("/create", controller.create);
 
 router.post(
@@ -24,5 +32,6 @@ router.post(
     productValidate.createPost,
     controller.createPost
 );
+
 
 module.exports = router;

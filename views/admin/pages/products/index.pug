@@ -94,7 +94,10 @@ block main
                                             class="badge bg-danger"
                                         ) Out Stock
                                 td
-                                    button(class="btn btn-warning btn-sm") Edit 
+                                    a(
+                                        href=`${prefixAdmin}/products/edit/${item.id}`
+                                        class="btn btn-warning btn-sm" 
+                                    ) Edit 
                                     button(
                                         class="btn btn btn-danger btn-sm ms -1"
                                         data-id= item.id
