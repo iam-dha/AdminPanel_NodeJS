@@ -17,3 +17,22 @@ module.exports.index = async (req, res) => {
         products: productList
     });
 }
+
+// [GET] /products
+module.exports.detail = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            slug: req.params.slug,
+            availabilityStatus: "In Stock"
+        }
+        const product = await Product.findOne(find);
+        res.render("./client/pages/products/detail.pug", {
+            titlePage: "Product Detail",
+            product: product
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
+    }
+    
+}
