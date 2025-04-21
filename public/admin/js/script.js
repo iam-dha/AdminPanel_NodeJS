@@ -93,13 +93,6 @@ if (checkboxMulti) {
             } else {
                 inputCheckAll.checked = false;
             }
-            // const countChecked = checkboxMulti.querySelectorAll("input[name='id']:checked").length;
-            // if(countChecked == inputsId.length){
-            //     inputCheckAll.checked = true;
-            // }
-            // else {
-            //     inputCheckAll.checked = false;
-            // }
         });
     });
 

@@ -4,7 +4,6 @@ const productValidate = require("../../validates/admin/product.validate");
 // const storageMulter = require("../../helpers/storageMulter");
 // const upload = multer({storage: storageMulter()});
 const fileUpload = multer();
-
 const router = express.Router();
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
