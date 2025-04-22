@@ -7,7 +7,7 @@ const redirectBack = require("../../helpers/redirectBack");
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false
-    };
+    };  
 
     const categories = await ProductCategory.find(find);
     res.render("./admin/pages/product-category/index.pug", {
@@ -17,9 +17,36 @@ module.exports.index = async (req, res) => {
 }
 
 // [GET] admin/product-category/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+
+    function createTree(arr, parentId = ""){
+        let tree = [];
+
+        arr.forEach(item => {
+            if(item.parent_id === parentId){
+                const newItem = item;
+                const children = createTree(arr, item.id);
+                if(children.length > 0){
+                    newItem.children = children;
+                }
+                tree.push(newItem);
+            }
+        });
+
+        return tree;
+    }
+
+    let categories = await ProductCategory.find(find);
+    console.log(categories);
+    // let temp = createTree(categories);
+    // console.log(temp);
+
     res.render("./admin/pages/product-category/create.pug", {
-        titlePage: "Product Categories"
+        titlePage: "Product Categories",
+        categories: categories
     });
 }
 
