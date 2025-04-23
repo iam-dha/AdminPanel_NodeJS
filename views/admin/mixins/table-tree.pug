@@ -1,0 +1,61 @@
+mixin table-tree(items, level = 1)
+    each item in items   
+        - const prefix = Array(level + 1).join("-- ");
+        tr
+            td 
+                input(
+                    type='checkbox'
+                    name='id'
+                    value = item.id
+                )
+            td #{item.index}
+            td 
+                img(
+                    src=item.thumbnail
+                    alt= `Category ${index + 1}`
+                    wigth= "100px"
+                    height= "70px"
+                )
+            td #{prefix}#{item.title}
+            td 
+                input(
+                    type="number"
+                    value= item.position
+                    style= "width: 60px"
+                    min= "1"
+                    name= "position"
+                )
+            if (item.status == "active")
+                td 
+                    a( 
+                        href="javascript:;" 
+                        data-status= item.status
+                        data-id = item.id
+                        button-change-status
+                        class="badge bg-success"
+                    ) Active
+            else 
+                td 
+                    a(
+                        href="javascript:;" 
+                        data-status= item.status
+                        data-id = item.id
+                        button-change-status
+                        class="badge bg-danger"
+                    ) Inactive
+            td
+                a(
+                    href=`${prefixAdmin}/product-category/detail/${item.id}`
+                    class="btn btn-secondary btn-sm" 
+                ) Detail 
+                a(
+                    href=`${prefixAdmin}/product-category/edit/${item.id}`
+                    class="btn btn-warning btn-sm" 
+                ) Edit 
+                button(
+                    class="btn btn btn-danger btn-sm ms -1"
+                    data-id= item.id
+                    button-delete
+                    ) Delete
+        if(item.children && item.children.length > 0)
+            +table-tree(item.children, level + 1) 

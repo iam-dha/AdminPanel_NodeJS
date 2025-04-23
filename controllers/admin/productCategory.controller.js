@@ -2,17 +2,19 @@ const ProductCategory = require("../../models/product-category.model");
 
 const systemConfig = require("../../config/system");
 const redirectBack = require("../../helpers/redirectBack");
+const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] admin/product-category/
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false
     };  
-
     const categories = await ProductCategory.find(find);
+    let newCategories = createTreeHelper.create(categories);
+    
     res.render("./admin/pages/product-category/index.pug", {
         titlePage: "Product Categories",
-        categories: categories
+        categories: newCategories
     });
 }
 
@@ -21,32 +23,12 @@ module.exports.create = async (req, res) => {
     let find = {
         deleted: false
     }
-
-    function createTree(arr, parentId = ""){
-        let tree = [];
-
-        arr.forEach(item => {
-            if(item.parent_id === parentId){
-                const newItem = item;
-                const children = createTree(arr, item.id);
-                if(children.length > 0){
-                    newItem.children = children;
-                }
-                tree.push(newItem);
-            }
-        });
-
-        return tree;
-    }
-
-    let categories = await ProductCategory.find(find);
-    console.log(categories);
-    // let temp = createTree(categories);
-    // console.log(temp);
+    const categories = await ProductCategory.find(find);
+    let newCategories = createTreeHelper.create(categories);
 
     res.render("./admin/pages/product-category/create.pug", {
         titlePage: "Product Categories",
-        categories: categories
+        categories: newCategories
     });
 }
 
