@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug 
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block main 
     +alert-error("5000")
@@ -20,6 +21,16 @@ block main
                 name="title"
                 required
             )
+        div(class="form-group")
+            label(for="product_category_id") Parent Category
+            select(
+                name= "product_category_id"
+                id= "product_category_id"
+                class= "form-control"
+            )
+                option(value= "") -- Select Category 
+                if(categories)
+                    +select-tree(categories, 1)
         div(class="form-group")
             label(for="desc") Description
             textarea(
