@@ -1,0 +1,100 @@
+extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
+
+block main 
+    h1(class= "mb-4") Edit new product 
+
+    form(
+        action= `${prefixAdmin}/product-category/edit/${record.id}?_method=PATCH`
+        id="form-create-category"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group")
+            label(for="title") Title
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+                value= record.title
+            )
+        div(class="form-group")
+            label(for="parent_id") Parent Category
+            select(
+                name= "parent_id"
+                id= "parent_id"
+                class= "form-control"
+            )
+                option(value= "") -- Select Parent Category 
+                if(categories)
+                    +select-tree(categories, 1, record.parent_id)
+                
+        div(class="form-group")
+            label(for="desc") Description
+            textarea(
+                class="form-control"
+                id="desc"
+                name="description"
+                rows="5"
+            ) #{record.description}
+        div(
+            class="form-group"
+            upload-image
+        )
+            label(for="thumbnail") Thumbnail
+            br
+            input(
+                type="file"
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+            )
+            br
+            img(
+                src= record.thumbnail
+                upload-image-preview
+                class="image-preview"
+            )
+        div(class="form-group")
+            label(for="position") Position
+            input(
+                type="number"
+                class="form-control"
+                id="position"
+                name="position"
+                placeholder="Increment"
+                min="1"
+                value= record.position
+            )
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusActive"
+                name="status"
+                value="active"
+                checked= (record.status == "active" ? true : false)
+            )
+            label(for="statusActive" class="form-check-label") Active
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusInactive"
+                name="status"
+                value="inactive"
+                checked= (record.status == "active" ? false : true)
+            )
+            label(for="statusInactive" class="form-check-label") Inactive
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Update
+
+
+

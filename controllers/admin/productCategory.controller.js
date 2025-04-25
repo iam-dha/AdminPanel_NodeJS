@@ -18,10 +18,11 @@ module.exports.index = async (req, res) => {
     });
 }
 
+
 // [GET] admin/product-category/create
 module.exports.create = async (req, res) => {
     let find = {
-        deleted: false
+        deleted: false,
     }
     const categories = await ProductCategory.find(find);
     let newCategories = createTreeHelper.create(categories);
@@ -47,3 +48,48 @@ module.exports.createPost = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/product-category`)
     
 }
+// [GET] admin/product-category/edit/:id
+module.exports.edit = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const record = await ProductCategory.findOne(
+            {
+                _id: id,
+                deleted: false
+            }
+        );
+        let find = {
+            deleted: false,
+        }
+        const categories = await ProductCategory.find(find);
+        let newCategories = createTreeHelper.create(categories);
+        console.log(record);
+        res.render("admin/pages/product-category/edit.pug",
+            {
+                pageTitle: "Edit product category",
+                record: record,
+                categories: newCategories
+            }
+        )
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/product-category/`)
+    }
+    
+}
+
+// [PATCH] admin/product-category/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    req.body.position = parseInt(req.body.position);
+    const record = await ProductCategory.updateOne(
+        {_id: id},
+        req.body
+    );
+    redirectBack(req, res);
+}
+
+
+
+
+

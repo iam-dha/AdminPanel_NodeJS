@@ -15,7 +15,21 @@ router.post(
     fileUpload.single("thumbnail"),
     uploadCloud.upload,
     // productValidate.createPost,
-    productCategoryController.createPost);
+    productCategoryController.createPost
+);
+
+router.get(
+    "/edit/:id",
+    productCategoryController.edit
+)
+
+router.patch(
+    "/edit/:id",
+    fileUpload.single("thumbnail"),
+    uploadCloud.upload,
+    productCategoryController.editPatch
+)
+
 
 module.exports = router;
 
