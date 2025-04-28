@@ -1,0 +1,57 @@
+extends ../../layouts/default.pug
+
+block main
+    h1(class="mb-4") Nhóm quyền
+    .card.mb-3
+        .card-header Danh sách
+            .card-body
+                .row
+                    .col-8
+                    .col-4.text-right
+                        a(
+                            href=`${prefixAdmin}/roles/create`
+                            class="btn btn-outline-success"
+                        ) + Thêm mới
+                table(
+                    class= "table table-hover table-sm"
+                    checkbox-multi
+                )
+                    thead 
+                        tr
+                            th  
+                                input(type="checkbox" name="checkall")
+                            th No.
+                            th Role
+                            th Description
+                            th Action
+
+                    tbody
+                        if(roles.length > 0) 
+                            each item, index in roles   
+                                tr
+                                    td 
+                                        input(
+                                            type='checkbox'
+                                            name='id'
+                                            value = item.id
+                                        )
+                                    td #{index + 1}
+                                    td #{item.title}
+                                    td #{item.description}
+                                    td
+                                        a(
+                                            href=`${prefixAdmin}/roles/detail/${item.id}`
+                                            class="btn btn-secondary btn-sm" 
+                                        ) Detail 
+                                        a(
+                                            href=`${prefixAdmin}/roles/edit/${item.id}`
+                                            class="btn btn-warning btn-sm" 
+                                        ) Edit 
+                                        button(
+                                            class="btn btn btn-danger btn-sm ms -1"
+                                            data-id= item.id
+                                            button-delete
+                                            ) Delete
+                        else    
+                            tr  
+                                td(colspan = '4' class='text-center') No permission groups have been set up yet. 
