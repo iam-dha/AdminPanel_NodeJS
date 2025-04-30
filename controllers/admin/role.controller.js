@@ -63,3 +63,28 @@ module.exports.editPatch = async (req, res) => {
     redirectBack(req, res);
 }
 
+// [GET] /admin/roles/create
+module.exports.permissions = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+
+    const roles = await Role.find(find);
+    res.render("admin/pages/roles/permissions.pug", {
+        pageTitle: "Access Control",
+        roles: roles
+    });
+}
+
+// [PATCH] /admin/roles/create
+module.exports.permissionsPatch = async (req, res) => {
+    const permissions = JSON.parse(req.body.permissions);
+
+    for (const record of permissions) {
+        const id = record.id;
+
+        await Role.updateOne({_id: id}, {permissions: record.permissions});
+    }
+    req.flash("success", "Update Successfully")
+    redirectBack(req, res);
+}
